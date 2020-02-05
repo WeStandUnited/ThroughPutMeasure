@@ -6,42 +6,37 @@ import java.io.*;
 public class Client {
 
     static final int PORT = 2770;// This is MY PORT up to 2779
+    static String host = "pi.cs.oswego.edu";
 
     public static void main(String[] args) {
+        PrintWriter out = null;
+        BufferedReader in = null;
         try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
+            Socket sock = new Socket(host, PORT);
 
-            for (;;) {
-                Socket client = serverSocket.accept();
+            out = new PrintWriter(sock.getOutputStream(), true);
 
-                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-                BufferedReader in =
-                        new BufferedReader(new InputStreamReader(client.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(
+                    sock.getInputStream()));
 
-                String cmd = in.readLine();
 
-                String reply = "<html>\n" +
-                        "<head><title>Testing</title></head>\n" +
-                        "<body><h1>Hello World!</h1></body>\n" +
-                        "Got request:<br>\n " +
-                        cmd +
-                        "\n</html>\n";
 
-                int len = reply.length();
 
-                out.println("HTTP/1.0 200 OK");
-                out.println("Content-Length: " + len);
-                out.println("Content-Type: text/html\n");
-                out.println(reply);
 
-                out.close();
-                in.close();
-                client.close();
-            }
+
+
+
+
+
+
+
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
+
+
     }
 }
