@@ -10,15 +10,12 @@ public class Client {
 
     public static void main(String[] args) {
         PrintWriter out = null;
-        BufferedReader in = null;
+        DataInputStream  input   = null;
         try {
             Socket sock = new Socket(host, PORT);
-
-            out = new PrintWriter(sock.getOutputStream(), true);
-
-            in = new BufferedReader(new InputStreamReader(
-                    sock.getInputStream()));
-
+            System.out.println("Connected");
+            input  = new DataInputStream(System.in);
+            out = new PrintWriter(sock.getOutputStream());
 
 
 
