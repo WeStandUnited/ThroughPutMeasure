@@ -1,26 +1,36 @@
+
+// A Java program for a Server
+import java.net.*;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 
-public class Server {
-    static final int PORT = 2770;// This is MY PORT up to 2779
-    static String host = "pi.cs.oswego.edu";
-    DataInputStream in       =  null;
+public class Server
+{
+    //initialize socket and input stream
+    private Socket          socket   = null;
+    private ServerSocket    server   = null;
+    private DataInputStream in       =  null;
 
-    public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
+    // constructor with port
+    public Server(int port)
+    {
+        // starts server and waits for a connection
+        try
+        {
+            server = new ServerSocket(port);
             System.out.println("Server started");
+
             System.out.println("Waiting for a client ...");
 
-            Socket s=serverSocket.accept();
+            socket = server.accept();
             System.out.println("Client accepted");
 
-
-            DataInputStream in = new DataInputStream(
-                    new BufferedInputStream(s.getInputStream()));
+            // takes input from the client socket
+            in = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
 
             String line = "";
+
+            // reads message from client until "Over" is sent
             while (!line.equals("Over"))
             {
                 try
@@ -37,11 +47,18 @@ public class Server {
             System.out.println("Closing connection");
 
             // close connection
-            s.close();
+            socket.close();
             in.close();
-        }catch (IOException e) {
-            e.printStackTrace();
         }
+        catch(IOException i)
+        {
+            System.out.println(i);
+        }
+    }
 
+    public static void main(String args[])
+    {
+        Server server = new Server(5000);
     }
 }
+
