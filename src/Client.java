@@ -1,39 +1,72 @@
+// A Java program for a Client
 import java.net.*;
 import java.io.*;
 
+public class Client
+{
+    // initialize socket and input output streams
+    private Socket socket		 = null;
+    private DataInputStream input = null;
+    private DataOutputStream out	 = null;
 
-//git push -u origin master
-public class Client {
-
-    static final int PORT = 2770;// This is MY PORT up to 2779
-    static String host = "pi.cs.oswego.edu";
-
-    public static void main(String[] args) {
-        PrintWriter out = null;
-        DataInputStream  input   = null;
-        try {
-            Socket sock = new Socket(host, PORT);
+    // constructor to put ip address and port
+    public Client(String address, int port)
+    {
+        // establish a connection
+        try
+        {
+            socket = new Socket(address, port);
             System.out.println("Connected");
-            input  = new DataInputStream(System.in);
-            out = new PrintWriter(sock.getOutputStream());
 
+            // takes input from terminal
+            input = new DataInputStream(System.in);
 
-
-
-
-
-
-
-
-
-
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            // sends output to the socket
+            out = new DataOutputStream(socket.getOutputStream());
+        }
+        catch(UnknownHostException u)
+        {
+            System.out.println(u);
+        }
+        catch(IOException i)
+        {
+            System.out.println(i);
         }
 
+        // string to read message from input
+        String line = "";
 
+        // keep reading until "Over" is input
+        while (!line.equals("Over"))
+        {
+            try
+            {
+                line = input.readLine();
+                out.writeUTF(line);
+            }
+            catch(IOException i)
+            {
+                System.out.println(i);
+            }
+        }
+
+        // close the connection
+        try
+        {
+            input.close();
+            out.close();
+            socket.close();
+        }
+        catch(IOException i)
+        {
+            System.out.println(i);
+        }
+    }
+
+    public static void main(String args[])
+    {
+        final int PORT = 2770;// This is MY PORT up to 2779
+        String host = "pi.cs.oswego.edu";
+        Client client = new Client(host, PORT);
     }
 }

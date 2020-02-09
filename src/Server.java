@@ -5,6 +5,7 @@ import java.io.*;
 
 public class Server
 {
+
     //initialize socket and input stream
     private Socket          socket   = null;
     private ServerSocket    server   = null;
@@ -58,7 +59,9 @@ public class Server
 
     public static void main(String args[])
     {
-        Server server = new Server(5000);
+         final int PORT = 2770;// This is MY PORT up to 2779
+         String host = "pi.cs.oswego.edu";
+        Server server = new Server(PORT);
     }
 }
 
