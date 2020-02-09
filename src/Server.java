@@ -56,6 +56,31 @@ public class Server
             System.out.println(i);
         }
     }
+    private int hash(String s) {
+        // System.out.println(s);
+        char[] arr = s.toCharArray();
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += sum + arr[i];
+
+        }
+
+        sum = 1013 * sum;
+        // System.out.println(sum & size - 1);
+        return sum;
+    }
+/*    public int get(String k) {
+
+        int i = hash(k);
+        for (Node p = table[i]; p != null; p = p.next) {
+            if (k.equals(p.key)) {
+                return p.value;
+            }
+        }
+
+        return 0;// only play where it can return zero
+
+    }*/
 
     public static void main(String args[])
     {

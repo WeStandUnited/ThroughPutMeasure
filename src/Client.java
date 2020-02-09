@@ -1,12 +1,15 @@
 // A Java program for a Client
 import java.net.*;
 import java.io.*;
+import java.lang.System;
 
 public class Client
 {
+
+
     // initialize socket and input output streams
     private Socket socket		 = null;
-    private DataInputStream input = null;
+    private BufferedReader  input = null;
     private DataOutputStream out	 = null;
 
     // constructor to put ip address and port
@@ -19,8 +22,7 @@ public class Client
             System.out.println("Connected");
 
             // takes input from terminal
-            input = new DataInputStream(System.in);
-
+            BufferedReader d = new BufferedReader(new InputStreamReader(System.in));
             // sends output to the socket
             out = new DataOutputStream(socket.getOutputStream());
         }
@@ -60,6 +62,7 @@ public class Client
         catch(IOException i)
         {
             System.out.println(i);
+
         }
     }
 
