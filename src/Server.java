@@ -17,7 +17,7 @@ public class Server
 
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
-            String input = "";
+            String input = "e";
 
 
             while (!input.equals("exit")) {
