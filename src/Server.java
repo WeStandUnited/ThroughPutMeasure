@@ -5,88 +5,50 @@ import java.io.*;
 
 public class Server
 {
+    ServerSocket serverSocket = null;
 
-    //initialize socket and input stream
-    private Socket          socket   = null;
-    private ServerSocket    server   = null;
-    private DataInputStream in       =  null;
+    Socket client = null;
 
-    // constructor with port
-    public Server(int port)
-    {
-        // starts server and waits for a connection
-        try
-        {
-            server = new ServerSocket(port);
-            System.out.println("Server started");
+    PrintWriter out = null;
 
-            System.out.println("Waiting for a client ...");
+    BufferedReader in = null;
 
-            socket = server.accept();
-            System.out.println("Client accepted");
+    public Server(int PORT){
 
-            // takes input from the client socket
-            in = new DataInputStream(
-                    new BufferedInputStream(socket.getInputStream()));
+        try {
+            ServerSocket serverSocket = new ServerSocket(PORT);
+            String input = "";
 
-            String line = "";
 
-            // reads message from client until "Over" is sent
-            while (!line.equals("Over"))
-            {
-                try
-                {
-                    line = in.readUTF();
-                    System.out.println(line);
+            while (!input.equals("exit")) {
+                Socket client = serverSocket.accept();
 
-                }
-                catch(IOException i)
-                {
-                    System.out.println(i);
-                }
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+                input = in.readLine();
+
+                out.println(input);
+
             }
-            System.out.println("Closing connection");
 
-            // close connection
-            socket.close();
-            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch(IOException i)
-        {
-            System.out.println(i);
-        }
+
     }
-    private int hash(String s) {
-        // System.out.println(s);
-        char[] arr = s.toCharArray();
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += sum + arr[i];
 
-        }
 
-        sum = 1013 * sum;
-        // System.out.println(sum & size - 1);
-        return sum;
-    }
-/*    public int get(String k) {
 
-        int i = hash(k);
-        for (Node p = table[i]; p != null; p = p.next) {
-            if (k.equals(p.key)) {
-                return p.value;
-            }
-        }
 
-        return 0;// only play where it can return zero
 
-    }*/
 
-    public static void main(String args[])
-    {
-         final int PORT = 2770;// This is MY PORT up to 2779
-         String host = "pi.cs.oswego.edu";
-        Server server = new Server(PORT);
+
+
+
+    public static void main(String[] args) {
+        Server s = new Server(2770);
     }
 }
 
