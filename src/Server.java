@@ -1,10 +1,10 @@
 
 // A Java program for a Server
+
 import java.net.*;
 import java.io.*;
 
-public class Server
-{
+public class Server {
     ServerSocket serverSocket = null;
 
     Socket client = null;
@@ -13,38 +13,33 @@ public class Server
 
     BufferedReader in = null;
 
-    public Server(int PORT){
+    public Server(int PORT) {
 
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
-            String input = "e";
 
+            Socket client = serverSocket.accept();
 
-            while (!input.equals("exit")) {
-                Socket client = serverSocket.accept();
+            PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 
-                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
-                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String input = in.readLine();
 
-                input = in.readLine();
+            out.println(input);
 
-                out.println(input);
-
+            if ("hello server".equals(input)) {
+                out.println("hello client");
+            } else {
+                out.println("unrecognised greeting");
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-
-
-
-
-
-
 
 
     public static void main(String[] args) {

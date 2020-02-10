@@ -19,14 +19,19 @@ public class Client{
 
             in = new BufferedReader(new InputStreamReader(
                     sock.getInputStream()));
-
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+    public void stopConnection(){
+        try {
+            in.close();
+            out.close();
+            sock.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
