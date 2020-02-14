@@ -29,7 +29,7 @@ public class Server {
 
 
 
-            if ("hello server".equals(input)) {
+            if (encryptDecrpyt("hello server").equals(input)) {
                 out.println("hello client");
             } else if ("QUIT".equals(input)){
                 out.println("GoodBye!");
@@ -42,21 +42,24 @@ public class Server {
         }
 
     }
-    static String encrypt(String input){
+    static String encryptDecrpyt(String inputString){
+        // Define XOR key
+        // Any character value will work
+        int xorKey = 127;
 
+        // Define String to store encrypted/decrypted String
+        String outputString = "";
 
+        // calculate length of input string
+        int len = inputString.length();
 
-
-
-        return null; // TEMP
-    }
-    static String decrypt(String input){
-
-
-
-
-
-        return null; // TEMP
+        // perform XOR operation of key
+        // with every caracter in string
+        for (int i = 0; i < len; i++) {
+            outputString = outputString +
+                    Character.toString((char) (inputString.charAt(i) ^ xorKey));
+        }
+        return outputString;
     }
 
     public static void main(String[] args) {
