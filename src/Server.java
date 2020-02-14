@@ -29,7 +29,7 @@ public class Server {
 
 
 
-            if (encryptDecrpyt("hello server").equals(input)) {
+            if ("hello server".equals(input)) {
                 out.println("hello client");
             } else if ("QUIT".equals(input)){
                 out.println("GoodBye!");

@@ -55,7 +55,7 @@ public class Client{
         Client cli = new Client(host,port);
         long startTime = System.nanoTime();
         System.out.println("Start: "+startTime+"ns");
-        System.out.println(cli.sendMessage(encryptDecrpyt("hello Server")));
+        System.out.println(cli.sendMessage("hello server"));
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("End: "+estimatedTime +"ns");
 
