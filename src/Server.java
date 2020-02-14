@@ -5,6 +5,8 @@ import java.net.*;
 import java.io.*;
 
 public class Server {
+
+
     ServerSocket serverSocket = null;
 
     Socket client = null;
@@ -14,7 +16,6 @@ public class Server {
     BufferedReader in = null;
 
     public Server(int PORT) {
-
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
 
@@ -26,12 +27,13 @@ public class Server {
 
             String input = in.readLine();
 
-            out.println(input);
+
 
             if ("hello server".equals(input)) {
                 out.println("hello client");
-            } else {
-                out.println("unrecognised greeting");
+            } else if ("QUIT".equals(input)){
+                out.println("GoodBye!");
+                System.exit(0);
             }
 
 
@@ -40,7 +42,22 @@ public class Server {
         }
 
     }
+    static String encrypt(String input){
 
+
+
+
+
+        return null; // TEMP
+    }
+    static String decrypt(String input){
+
+
+
+
+
+        return null; // TEMP
+    }
 
     public static void main(String[] args) {
         Server s = new Server(2770);

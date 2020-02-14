@@ -19,6 +19,7 @@ public class Client{
 
             in = new BufferedReader(new InputStreamReader(
                     sock.getInputStream()));
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +36,38 @@ public class Client{
 
     }
 
+    static String encrypt(String input){
 
+
+
+
+
+        return null; // TEMP
+    }
+    static String decrypt(String input){
+
+
+
+
+
+        return null; // TEMP
+    }
+
+
+
+
+    public String sendMessage(String msg) {
+        try {
+        out.println(msg);
+        String resp = null;
+        resp = in.readLine();
+        return resp;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -44,7 +76,31 @@ public class Client{
         int port = 2770;
 
         Client cli = new Client(host,port);
+        long startTime = System.nanoTime();
+        System.out.println("Start: "+startTime+"ns");
+        System.out.println(cli.sendMessage("hello server"));
+        long estimatedTime = System.nanoTime() - startTime;
+        System.out.println("End: "+estimatedTime +"ns");
 
-    }
+
+        //One char is 1 byte
+
+        //12345678
+
+        // Send messagge
+
+        // Start Timer
+
+        //wait until Feed Back from server
+
+        // Get feed back
+
+        //Stop Timer
+
+
+
+
+
+    } 
 
 }
