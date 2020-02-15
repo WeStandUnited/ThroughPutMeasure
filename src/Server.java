@@ -17,33 +17,33 @@ public class Server {
 
     public Server(int PORT) {
 
-        for(;;) {
-
-            try {
-                ServerSocket serverSocket = new ServerSocket(PORT);
-
-                Socket client = serverSocket.accept();
-
-                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-                String input = in.readLine();
-
-                System.out.println(encryptDecrpyt(input));
-
-                if ("hello server".equals(input)) {
-                    out.println("hello client");
-                } else if ("QUIT".equals(input)) {
-                    out.println("GoodBye!");
-                    System.exit(0);
-                }
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            ServerSocket serverSocket = new ServerSocket(PORT);
+
+            Socket client = serverSocket.accept();
+
+            PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+            String input = in.readLine();
+
+            System.out.println(encryptDecrpyt(input));
+
+            if ("hello server".equals(input)) {
+                out.println("hello client");
+            } else if ("QUIT".equals(input)){
+                out.println("GoodBye!");
+                System.exit(0);
             }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
     static String encryptDecrpyt(String inputString){
         // Define XOR key
