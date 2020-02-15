@@ -24,11 +24,10 @@ public class Tester {
 
 
     public static void main(String[] args) {
+        String x = "hello se";
 
-        char[] x = {'1'};
+        System.out.println(x.length());
 
-        byte b = 1;
-        System.out.println(Character.BYTES);
 
 
         String e = encryptDecrypt("Baseball");

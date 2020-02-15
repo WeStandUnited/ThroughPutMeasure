@@ -2,12 +2,14 @@
 import java.net.*;
 import java.io.*;
 import java.lang.System;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class Client{
     private Socket sock = null;
     private PrintWriter out = null;
     private BufferedReader in = null;
+
 
 
     public Client(String host,int PORT){
@@ -25,6 +27,10 @@ public class Client{
         }
 
     }
+
+
+
+
 
     static String encryptDecrpyt(String inputString){
         // Define XOR key
@@ -55,7 +61,7 @@ public class Client{
         Client cli = new Client(host,port);
         long startTime = System.nanoTime();
         System.out.println("Start: "+startTime+"ns");
-        System.out.println(cli.sendMessage("hello server"));
+        System.out.println(cli.sendMessage(encryptDecrpyt("12345678")));
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("End: "+estimatedTime +"ns");
 
@@ -103,5 +109,7 @@ public class Client{
             return null;
         }
     }
+
+
 
 }
