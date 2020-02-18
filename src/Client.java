@@ -54,15 +54,22 @@ public class Client{
 
 
     public static void main(String[] args) {
-        String host = "pi.cs.oswego.edu";
+        //String host = "pi.cs.oswego.edu";
+
+        String host = "localhost";
 
         int port = 2770;
 
         Client cli = new Client(host,port);
+
         long startTime = System.nanoTime();
+
         System.out.println("Start: "+startTime+"ns");
-        System.out.println(cli.sendMessage(encryptDecrpyt("12345678")));
+
+        System.out.println(encryptDecrpyt(cli.sendMessage(encryptDecrpyt("123456789"))));
+
         long estimatedTime = System.nanoTime() - startTime;
+
         System.out.println("End: "+estimatedTime +"ns");
 
 

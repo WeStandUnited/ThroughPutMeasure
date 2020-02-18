@@ -15,36 +15,51 @@ public class Server {
 
     BufferedReader in = null;
 
-    public Server(int PORT) {
-
-
-
+    public void stopConnection(){
         try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
-
-            Socket client = serverSocket.accept();
-
-            PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-            String input = in.readLine();
-
-            System.out.println(encryptDecrpyt(input));
-
-            if ("hello server".equals(input)) {
-                out.println("hello client");
-            } else if ("QUIT".equals(input)){
-                out.println("GoodBye!");
-                System.exit(0);
-            }
-
-
+            in.close();
+            out.close();
+            client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+    public Server(int PORT) {
+
+
+            try {
+                ServerSocket serverSocket = new ServerSocket(PORT);
+
+                Socket client = serverSocket.accept();
+
+                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
+                while(client.isConnected()) {
+                    String input = in.readLine();
+
+                    System.out.println(encryptDecrpyt(input));
+
+                    if ("hello server".equals(input)) {
+                        out.println("hello client");
+                    } else if ("QUIT".equals(input)) {
+                        out.println("GoodBye!");
+                        stopConnection();
+                        System.exit(0);
+                    } else {
+                        out.println(encryptDecrpyt(String.valueOf(input.length())));//sends length
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
@@ -66,7 +81,8 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server s = new Server(2770);
+         Server s = new Server(2770);
+
     }
 }
 
