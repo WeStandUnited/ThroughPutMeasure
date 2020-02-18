@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 public class Client2 {
     static String encryptDecrpyt(String inputString){
@@ -27,10 +28,25 @@ public class Client2 {
     }
 
 
+    static public String generateString(int b){
+        Random r = new Random();
+        String output = "";
+        StringBuilder stringBuilder = new StringBuilder(output);
+
+        for(int i = 0;i < b;i++){
+
+            char c = (char)(r.nextInt(26) + 'a');
+            stringBuilder.append(c);
+        }
+
+        return stringBuilder.toString();
+    }
+
 
 
     public static void main(String[] args) {
-        String host = "localhost";
+        //String host = "localhost";
+        String host = "pi.cs.oswego.edu";
         int Port = 2770;
 
         Socket sock = null;
@@ -56,9 +72,12 @@ public class Client2 {
         try {
            /* BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));*/
+            //One char is 1 byte
 
+            String sending = generateString(1024);
 
-            out.println(encryptDecrpyt("1234567890123456747329487398473"));
+            System.out.println("Byte Amount:"+sending.length());
+            out.println(encryptDecrpyt(sending));
             long startTime = System.nanoTime();
             System.out.println("Start: "+startTime+"ns");
             String userInput = in.readLine();

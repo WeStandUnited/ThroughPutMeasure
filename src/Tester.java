@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Tester {
 
     static String encryptDecrypt(String inputString) {
@@ -21,18 +23,24 @@ public class Tester {
         System.out.println(outputString);
         return outputString;
     }
+    public static String generateString(int b){
+        Random r = new Random();
+        String output = "";
+        StringBuilder stringBuilder = new StringBuilder(output);
+
+        for(int i = 0;i < b;i++){
+
+            char c = (char)(r.nextInt(26) + 'a');
+            stringBuilder.append(c);
+        }
+
+        return stringBuilder.toString();
+    }
 
 
     public static void main(String[] args) {
-        String x = "hello se";
-
-        System.out.println(x.length());
-
-
-
-        String e = encryptDecrypt("Baseball");
-        //char is 16 bits or 2 bytes
-        encryptDecrypt("=\u001E\f\u001A\u001D\u001E\u0013\u0013");
+        String rand = generateString(1024);
+        System.out.println(rand.length());
 
     }
 }
