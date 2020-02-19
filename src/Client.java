@@ -1,47 +1,22 @@
-// A Java program for a Client
-import java.net.*;
-import java.io.*;
-import java.lang.System;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Random;
 
-public class Client{
-    private Socket sock = null;
-    private PrintWriter out = null;
-    private BufferedReader in = null;
-
-
-
-    public Client(String host,int PORT){
-
-        try {
-            sock = new Socket(host, PORT);
-
-            out = new PrintWriter(sock.getOutputStream(), true);
-
-            in = new BufferedReader(new InputStreamReader(
-                    sock.getInputStream()));
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-
-
-
+public class Client {
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
-        int xorKey = 127;
+        int xorKey = 7;
 
         // Define String to store encrypted/decrypted String
         String outputString = "";
 
         // calculate length of input string
-        int len = inputString.length();
+         int len = inputString.length();
 
         // perform XOR operation of key
         // with every caracter in string
@@ -53,70 +28,84 @@ public class Client{
     }
 
 
+    static public String generateString(int b){
+        Random r = new Random();
+        String output = "";
+        StringBuilder stringBuilder = new StringBuilder(output);
+
+        for(int i = 0;i < b;i++){
+
+            char c = (char)(r.nextInt(26) + 'a');
+            stringBuilder.append(c);
+        }
+
+        return stringBuilder.toString();
+    }
+
+
+
     public static void main(String[] args) {
-        //String host = "pi.cs.oswego.edu";
+        //String host = "localhost";
+        String host = "pi.cs.oswego.edu";
+        int Port = 2770;
 
-        String host = "localhost";
+        Socket sock = null;
+        PrintWriter out = null;
+        BufferedReader in = null;
 
-        int port = 2770;
-
-        Client cli = new Client(host,port);
-
-        long startTime = System.nanoTime();
-
-        System.out.println("Start: "+startTime+"ns");
-
-        System.out.println(encryptDecrpyt(cli.sendMessage(encryptDecrpyt("123456789"))));
-
-        long estimatedTime = System.nanoTime() - startTime;
-
-        System.out.println("End: "+estimatedTime +"ns");
-
-
-        //One char is 1 byte
-
-        //12345678
-
-        // Send messagge
-
-        // Start Timer
-
-        //wait until Feed Back from server
-
-        // Get feed back
-
-        //Stop Timer
-
-
-
-
-
-    }
-
-    public void stopConnection(){
         try {
-            in.close();
+            sock = new Socket(host, Port);
+            if (sock.isConnected()) System.out.println("Connected!");
+            out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(
+                    sock.getInputStream()));
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + host);
+            e.printStackTrace();
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        try {
+
+            String sending = generateString(1024);
+            //System.out.println("Sending:"+sending);
+            //System.out.println(sending.length());
+            System.out.println("Byte Amount:"+sending.length());
+            out.println(encryptDecrpyt(sending));
+            //out.println(sending);
+            long startTime = System.nanoTime();
+            String userInput = in.readLine();
+            //System.out.println("Receiving:"+ userInput);
+            String decrpyted = encryptDecrpyt(userInput);
+            //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
+            if (decrpyted.equals(sending)){
+
+                System.out.println("Validated!");
+            }
+
+            long estimatedTime = System.nanoTime() - startTime;
+            System.out.println("RTT: "+estimatedTime +"ns");
+
+
+
+         /*   while ((userInput = stdIn.readLine()) != null) {
+                out.println(userInput);
+                System.out.println("echo: " + in.readLine());
+                userInput = null;
+            }*/
+
             out.close();
+            in.close();
+            in.close();
             sock.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-    }
-
-    public String sendMessage(String msg) {
-        try {
-        out.println(msg);
-        String resp = null;
-        resp = in.readLine();
-        return resp;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        catch (IOException ex) {
+            System.err.println("IO failure.");
+            ex.printStackTrace();
         }
     }
-
-
-
 }
