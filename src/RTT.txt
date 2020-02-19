@@ -11,6 +11,18 @@ Byte Amount:1024
 Validated!
 RTT: 4454974ns
 
+Lab NUC(Wired Shineman Network)-> PI
+Byte Amount:1024
+Validated!
+RTT: 3563860ns
+
+Byte Amount:64
+Validated!
+RTT: 2063996ns
+
+Byte Amount:8
+Validated!
+RTT: 864979ns
 
 
 
