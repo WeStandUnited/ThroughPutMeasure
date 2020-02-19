@@ -45,8 +45,8 @@ public class Client2 {
 
 
     public static void main(String[] args) {
-        String host = "localhost";
-        //String host = "pi.cs.oswego.edu";
+        //String host = "localhost";
+        String host = "pi.cs.oswego.edu";
         int Port = 2770;
 
         Socket sock = null;
@@ -71,7 +71,7 @@ public class Client2 {
 
         try {
 
-            String sending = generateString(8);
+            String sending = generateString(1024);
             //System.out.println("Sending:"+sending);
             //System.out.println(sending.length());
             System.out.println("Byte Amount:"+sending.length());

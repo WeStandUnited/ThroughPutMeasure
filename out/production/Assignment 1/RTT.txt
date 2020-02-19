@@ -1,10 +1,15 @@
 Laptop(Shineman Network) -> PI
-Byte Amount:1024
+Byte Amount:8
 Validated!
-RTT: 2114427ns
+RTT: 3559558ns
+
 Byte Amount:64
 Validated!
-RTT: 532682ns
+RTT: 3108892ns
+
+
+
+
 
 
 

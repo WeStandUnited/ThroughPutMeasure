@@ -1,4 +1,16 @@
-Laptop(Shineman Network) -> PI
+Laptop(Wireless Shineman Network) -> PI
+Byte Amount:8
+Validated!
+RTT: 3559558ns
+
+Byte Amount:64
+Validated!
+RTT: 3108892ns
+
+Byte Amount:1024
+Validated!
+RTT: 4454974ns
+
 
 
 
