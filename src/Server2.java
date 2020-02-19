@@ -39,7 +39,7 @@ public class Server2 {
                         new BufferedReader(new InputStreamReader(client.getInputStream()));
 
                 String cmd = in.readLine();
-                System.out.println(encryptDecrpyt(cmd));
+                System.out.println(cmd);
                 out.println(cmd);
 
                 if (cmd.equals("quit")){

@@ -10,7 +10,7 @@ public class Client2 {
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
-        int xorKey = 127;
+        int xorKey = 7;
 
         // Define String to store encrypted/decrypted String
         String outputString = "";
@@ -45,8 +45,8 @@ public class Client2 {
 
 
     public static void main(String[] args) {
-        //String host = "localhost";
-        String host = "pi.cs.oswego.edu";
+        String host = "localhost";
+        //String host = "pi.cs.oswego.edu";
         int Port = 2770;
 
         Socket sock = null;
@@ -70,20 +70,26 @@ public class Client2 {
         }
 
         try {
-           /* BufferedReader stdIn =
-                    new BufferedReader(new InputStreamReader(System.in));*/
-            //One char is 1 byte
 
-            String sending = generateString(1024);
-
+            String sending = generateString(8);
+            //System.out.println("Sending:"+sending);
+            //System.out.println(sending.length());
             System.out.println("Byte Amount:"+sending.length());
             out.println(encryptDecrpyt(sending));
+            //out.println(sending);
             long startTime = System.nanoTime();
-            System.out.println("Start: "+startTime+"ns");
             String userInput = in.readLine();
-            System.out.println(encryptDecrpyt(userInput));
+            //System.out.println("Receiving:"+ userInput);
+            String decrpyted = encryptDecrpyt(userInput);
+            //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
+            if (decrpyted.equals(sending)){
+
+                System.out.println("Validated!");
+            }
+
             long estimatedTime = System.nanoTime() - startTime;
-            System.out.println("End: "+estimatedTime +"ns");
+            System.out.println("RTT: "+estimatedTime +"ns");
+
 
 
          /*   while ((userInput = stdIn.readLine()) != null) {
