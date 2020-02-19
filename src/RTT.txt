@@ -24,8 +24,17 @@ Byte Amount:8
 Validated!
 RTT: 864979ns
 
+NUC Lab(Shineman Wired)-> Altair
 
+Byte Amount:8
+Validated!
+RTT: 1300835ns
 
+Byte Amount:64
+Validated!
+RTT: 1355773ns
 
-
+Byte Amount:1024
+Validated!
+RTT: 5002646ns
 
