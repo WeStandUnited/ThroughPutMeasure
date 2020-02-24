@@ -9,7 +9,7 @@ public class Server {
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
-        int xorKey = 127;
+        int xorKey = 7;
 
         // Define String to store encrypted/decrypted String
         String outputString = "";

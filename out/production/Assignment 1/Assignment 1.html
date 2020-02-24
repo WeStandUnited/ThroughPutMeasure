@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Assignment 1</title>
+  </head>
+
+  <body>
+    <h1>Assignment 1</h1>
+
+    Measure the latency and throughput of TCP and/or UDP (as noted
+    below) across at least three pairs of machines using at least two
+    different networks. For example, two CS servers (like wolf and
+    pi), or a CS server to a laptop, wired or wireless, or off-campus.
+    Create a web page with graphs summarizing your results. All
+    messages must use xor encoding of 64bit (8 byte) values, based on
+    a (possibly random) key.  Include the following measurements:
+
+    <ul>
+      <li> Measure round-trip latency as a function of message size,
+        by sending and receiving (echoing and validating) messages of
+        size 8, 64, and 1024 bytes, using TCP. Measure RTTs.
+
+      </li><li> The same as (1), except using UDP.
+
+      </li><li> Measure throughput by sending TCP messages of size 1K, 16K,
+        64K, 256K, and 1M bytes in each direction. Measure transfer
+        rates.
+
+      </li><li> Measure the interaction between message size and number of
+        messages using TCP and UDP by sending 1MByte of data (with a
+        8-byte acknowledgment in the reverse direction) using
+        different numbers of messages: 1024 1024Byte messages, vs 2048
+        512Byte messages, vs 4096 X 256Byte messages.
+
+      </li><li> The same as (4), using UDP.
+        
+    </li></ul>
+
+    For timing, use System.nanoTime (or the closest equivalent if
+    using other languages). Read through the
+    <a href="http://java.sun.com/docs/books/tutorial/networking/index.html">
+    Java networking tutorial</a>. Also see <a href="http://gee.cs.oswego.edu/dl/csc445/SimpleService.java">
+    SimpleService.java</a> and <a href="http://gee.cs.oswego.edu/dl/csc445/EchoClient.java">EchoClient.java</a>
+    for some stripped-down examples of using server and client sockets.
+    When using non-CS machines and networks, minimize unnecessary
+    traffic while developing your programs. Beware of firewalls.
+    
+    <hr>
+    <address><a href="http://gee.cs.oswego.edu/dl">Doug
+    Lea</a></address>
+  
+
+</body></html>

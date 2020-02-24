@@ -57,8 +57,8 @@ public class Client {
             sock = new Socket(host, Port);
             if (sock.isConnected()) System.out.println("Connected!");
             out = new PrintWriter(sock.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(
-                    sock.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + host);
             e.printStackTrace();
