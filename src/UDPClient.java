@@ -46,13 +46,14 @@ public class UDPClient {
 
         DatagramSocket clientSocket = new DatagramSocket();
 
-        //String host = "pi.cs.oswego.edu";
+         //String host = "pi.cs.oswego.edu";
          String host = "localhost";
 
         InetAddress IPAddress = InetAddress.getByName(host);
 
         Scanner scan = new Scanner(System.in);
 
+        System.out.print("How Many bytes:");
         int amount = scan.nextInt();
 
 

@@ -8,15 +8,14 @@ public class UDPServer {
     public static void main(String args[]) throws Exception
     {
         DatagramSocket serverSocket = new DatagramSocket(2770);
-        Scanner scan = new Scanner(System.in);
 
-        int amount = scan.nextInt();
-
-
-        byte[] receiveData = new byte[amount];
-        byte[] sendData = new byte[amount];
         while(true)
         {
+            Scanner scan = new Scanner(System.in);
+            System.out.print("How Many bytes:");
+            int amount = scan.nextInt();
+            byte[] receiveData = new byte[amount];
+            byte[] sendData = new byte[amount];
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
             String sentence = new String( receivePacket.getData());
