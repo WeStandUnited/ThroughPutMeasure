@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 
 public class UDPServer {
@@ -7,8 +8,13 @@ public class UDPServer {
     public static void main(String args[]) throws Exception
     {
         DatagramSocket serverSocket = new DatagramSocket(2770);
-        byte[] receiveData = new byte[20000];
-        byte[] sendData = new byte[20000];
+        Scanner scan = new Scanner(System.in);
+
+        int amount = scan.nextInt();
+
+
+        byte[] receiveData = new byte[amount];
+        byte[] sendData = new byte[amount];
         while(true)
         {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);

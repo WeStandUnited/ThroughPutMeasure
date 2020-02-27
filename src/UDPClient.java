@@ -1,6 +1,8 @@
 import java.io.*;
 import java.net.*;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class UDPClient {
     static String encryptDecrpyt(String inputString){
@@ -44,11 +46,18 @@ public class UDPClient {
 
         DatagramSocket clientSocket = new DatagramSocket();
 
-        InetAddress IPAddress = InetAddress.getByName("localhost");
+        //String host = "pi.cs.oswego.edu";
+         String host = "localhost";
 
-        byte[] sendData = new byte[20000];
+        InetAddress IPAddress = InetAddress.getByName(host);
 
-        byte[] receiveData = new byte[20000];
+        Scanner scan = new Scanner(System.in);
+
+        int amount = scan.nextInt();
+
+
+        byte[] receiveData = new byte[amount];
+        byte[] sendData = new byte[amount];
 
         String sentence = generateString(20000);//inFromUser.readLine();
 
@@ -75,6 +84,8 @@ public class UDPClient {
         if (sentence.equals(encryptDecrpyt(modifiedSentence))){
             System.out.println("Validated!");
         }
+
+        System.out.println("RTT:"+TimeUnit.NANOSECONDS.toMillis(estimatedTime)+"ms");
 
         clientSocket.close();
     }
