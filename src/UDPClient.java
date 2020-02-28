@@ -46,8 +46,8 @@ public class UDPClient {
 
         DatagramSocket clientSocket = new DatagramSocket();
 
-         //String host = "pi.cs.oswego.edu";
-         String host = "localhost";
+         String host = "pi.cs.oswego.edu";
+         //String host = "localhost";
 
         InetAddress IPAddress = InetAddress.getByName(host);
 
