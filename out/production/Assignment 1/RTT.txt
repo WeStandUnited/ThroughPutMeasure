@@ -52,3 +52,11 @@ RTT: 5002646ns
 
 ________________UDP______________________
 
+Home PC -> Pi
+
+
+
+64 bytes
+RTT:10093811ns
+Validated!
+RTT:10ms

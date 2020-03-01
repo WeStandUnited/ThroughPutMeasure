@@ -11,9 +11,9 @@ public class UDPServer {
 
         while(true)
         {
-            Scanner scan = new Scanner(System.in);
-            System.out.print("How Many bytes:");
-            int amount = scan.nextInt();
+            //Scanner scan = new Scanner(System.in);
+            //System.out.print("How Many bytes:");
+            int amount = 8;
             byte[] receiveData = new byte[amount];
             byte[] sendData = new byte[amount];
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);

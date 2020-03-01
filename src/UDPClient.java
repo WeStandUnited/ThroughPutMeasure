@@ -1,10 +1,19 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class UDPClient {
+
+
+    List<Long> rtt = new ArrayList<>();
+
+    DatagramSocket clientSocket = null;
+
+
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
@@ -39,28 +48,36 @@ public class UDPClient {
         return stringBuilder.toString();
     }
 
-    public static void main(String args[]) throws Exception
+    public void closeports(){
+        clientSocket.close();
+
+    }
+
+    public void start(int amount)
     {
         //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
 
 
-        DatagramSocket clientSocket = new DatagramSocket();
 
-         String host = "pi.cs.oswego.edu";
-         //String host = "localhost";
+        try {
+            clientSocket = new DatagramSocket();
+
+
+        //String host = "pi.cs.oswego.edu";
+         String host = "localhost";
 
         InetAddress IPAddress = InetAddress.getByName(host);
 
-        Scanner scan = new Scanner(System.in);
+        //Scanner scan = new Scanner(System.in);
 
-        System.out.print("How Many bytes:");
-        int amount = scan.nextInt();
+
+        //scan.nextInt();
 
 
         byte[] receiveData = new byte[amount];
         byte[] sendData = new byte[amount];
 
-        String sentence = generateString(20000);//inFromUser.readLine();
+        String sentence = generateString(amount);//inFromUser.readLine();
 
         //System.out.println(sentence);
         String xorsentence = encryptDecrpyt(sentence);
@@ -78,6 +95,7 @@ public class UDPClient {
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("RTT:"+estimatedTime+"ns");
+            rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 
         //System.out.println("FROM SERVER:" + encryptDecrpyt(modifiedSentence));
@@ -88,6 +106,30 @@ public class UDPClient {
 
         System.out.println("RTT:"+TimeUnit.NANOSECONDS.toMillis(estimatedTime)+"ms");
 
-        clientSocket.close();
+
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+    }
+    public long calculateAverage(List<Long> marks) {
+        Long sum = 0L;
+        if(!marks.isEmpty()) {
+            for (Long mark : marks) {
+                sum += mark;
+            }
+            return sum / marks.size();
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        UDPClient u = new UDPClient();
+        for (int i=0;i < 100;i++){
+            u.start(8);
+        }
+        System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
+        u.closeports();
+
+
     }
 }

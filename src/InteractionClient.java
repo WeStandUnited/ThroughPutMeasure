@@ -177,7 +177,8 @@ public class InteractionClient {
     }
 
     public static void main(String[] args) {
-        new InteractionClient("TCP","localhost","",1024,2770,1024);
+
+        new InteractionClient("TCP","pi.cs.oswego.edu","",8,2770,10);
     }
 
 }

@@ -4,9 +4,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Client {
+    Socket sock = null;
+    PrintWriter out = null;
+    BufferedReader in = null;
+
+    List<Long> rtt = new ArrayList<>();
     static String encryptDecrpyt(String inputString){
         // Define XOR key
         // Any character value will work
@@ -26,7 +33,16 @@ public class Client {
         }
         return outputString;
     }
-
+    public long calculateAverage(List<Long> marks) {
+        Long sum = 0L;
+        if(!marks.isEmpty()) {
+            for (Long mark : marks) {
+                sum += mark;
+            }
+            return sum / marks.size();
+        }
+        return sum;
+    }
 
     static public String generateString(int b){
         Random r = new Random();
@@ -44,14 +60,12 @@ public class Client {
 
 
 
-    public static void main(String[] args) {
-        //String host = "localhost";
-        String host = "pi.cs.oswego.edu";
+    public void start(int amount) {
+        String host = "localhost";
+        //String host = "pi.cs.oswego.edu";
         int Port = 2770;
 
-        Socket sock = null;
-        PrintWriter out = null;
-        BufferedReader in = null;
+
 
         try {
             sock = new Socket(host, Port);
@@ -71,7 +85,7 @@ public class Client {
 
         try {
 
-            String sending = generateString(1024);
+            String sending = generateString(amount);
             //System.out.println("Sending:"+sending);
             //System.out.println(sending.length());
             System.out.println("Byte Amount:"+sending.length());
@@ -89,6 +103,7 @@ public class Client {
 
             long estimatedTime = System.nanoTime() - startTime;
             System.out.println("RTT: "+estimatedTime +"ns");
+            rtt.add(estimatedTime);
 
 
 
@@ -98,14 +113,33 @@ public class Client {
                 userInput = null;
             }*/
 
-            out.close();
-            in.close();
-            in.close();
-            sock.close();
+
         }
         catch (IOException ex) {
             System.err.println("IO failure.");
             ex.printStackTrace();
         }
+    }
+    public void close(){
+        try {
+        out.close();
+        in.close();
+            sock.close();
+
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        Client c = new Client();
+        for (int i = 0;i<100;i++){
+
+            c.start(8);
+        }
+
+        c.close();
+        System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
     }
 }
