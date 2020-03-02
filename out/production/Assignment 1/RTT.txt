@@ -11,52 +11,23 @@ This means that the effective throughput will be
 _______________TCP_________________________
 
 Laptop(Wireless Shineman Network) -> PI
-Byte Amount:8
-Validated!
-RTT: 3559558ns
 
-Byte Amount:64
-Validated!
-RTT: 3108892ns
-
-Byte Amount:1024
-Validated!
-RTT: 4454974ns
 
 Lab NUC(Wired Shineman Network)-> PI
-Byte Amount:1024
-Validated!
-RTT: 3563860ns
 
-Byte Amount:64
-Validated!
-RTT: 2063996ns
-
-Byte Amount:8
-Validated!
-RTT: 864979ns
 
 Lab NUC(Shineman Wired)-> Altair
 
-Byte Amount:8
-Validated!
-RTT: 1300835ns
 
-Byte Amount:64
-Validated!
-RTT: 1355773ns
-
-Byte Amount:1024
-Validated!
-RTT: 5002646ns
 
 ________________UDP______________________
 
-Home PC -> Pi
+Home PC -> Pi(Hard Wired:Home Network)
 
 
 
-64 bytes
-RTT:10093811ns
-Validated!
-RTT:10ms
+PI -> Wolf(Hardwired:CS Network)
+
+
+Laptop -> Pi (Wireless:Home Network)
+

@@ -53,7 +53,7 @@ public class UDPClient {
 
     }
 
-    public void start(int amount)
+    public void start(int amount,String host)
     {
         //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
 
@@ -63,8 +63,6 @@ public class UDPClient {
             clientSocket = new DatagramSocket();
 
 
-        //String host = "pi.cs.oswego.edu";
-         String host = "localhost";
 
         InetAddress IPAddress = InetAddress.getByName(host);
 
@@ -123,9 +121,11 @@ public class UDPClient {
     }
 
     public static void main(String[] args) {
+
+
         UDPClient u = new UDPClient();
         for (int i=0;i < 100;i++){
-            u.start(8);
+            u.start(8, "pi.cs.oswego.edu");
         }
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
         u.closeports();

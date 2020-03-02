@@ -5,9 +5,12 @@ import java.util.Scanner;
 
 public class UDPServer {
 
-    public static void main(String args[]) throws Exception
+    public void start(String args[])
     {
-        DatagramSocket serverSocket = new DatagramSocket(2770);
+        DatagramSocket serverSocket = null;
+        try {
+            serverSocket = new DatagramSocket(2770);
+
 
         while(true)
         {
@@ -27,14 +30,15 @@ public class UDPServer {
                     new DatagramPacket(sendData, sendData.length, IPAddress, port);
             serverSocket.send(sendPacket);
         }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
+    public static void main(String[] args) {
 
-
-
-
-
+    }
 
 
 
