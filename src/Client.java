@@ -60,13 +60,9 @@ public class Client {
 
 
 
-    public void start(int amount) {
-        String host = "localhost";
-        //String host = "pi.cs.oswego.edu";
+    public void start(String host,int amount) {
+
         int Port = 2770;
-
-
-
         try {
             sock = new Socket(host, Port);
             if (sock.isConnected()) System.out.println("Connected!");
@@ -82,6 +78,45 @@ public class Client {
             e.printStackTrace();
             System.exit(1);
         }
+        try {
+
+            String sending = generateString(amount);
+            //System.out.println("Sending:"+sending);
+            //System.out.println(sending.length());
+            System.out.println("Byte Amount:"+sending.length());
+            out.println(encryptDecrpyt(sending));
+            //out.println(sending);
+            long startTime = System.nanoTime();
+            String userInput = in.readLine();
+            //System.out.println("Receiving:"+ userInput);
+            String decrpyted = encryptDecrpyt(userInput);
+            //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
+            if (decrpyted.equals(sending)){
+
+                System.out.println("Validated!");
+            }
+
+            long estimatedTime = System.nanoTime() - startTime;
+            System.out.println("RTT: "+estimatedTime +"ns");
+            rtt.add(estimatedTime);
+
+
+
+         /*   while ((userInput = stdIn.readLine()) != null) {
+                out.println(userInput);
+                System.out.println("echo: " + in.readLine());
+                userInput = null;
+            }*/
+
+        }
+        catch (IOException ex) {
+            System.err.println("IO failure.");
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void send(int amount){
 
         try {
 
@@ -113,7 +148,6 @@ public class Client {
                 userInput = null;
             }*/
 
-
         }
         catch (IOException ex) {
             System.err.println("IO failure.");
@@ -134,9 +168,12 @@ public class Client {
 
     public static void main(String[] args) {
         Client c = new Client();
-        for (int i = 0;i<100;i++){
+        //String host = "localhost";
+        String host = "pi.cs.oswego.edu";
+        for (int i = 0;i<10;i++){
+        //c.send(8);
+            c.start(host,1024);
 
-            c.start(8);
         }
 
         c.close();

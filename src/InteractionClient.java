@@ -55,14 +55,10 @@ public class InteractionClient {
     }
 
     public InteractionClient(String mode, String host, String clientName, int byteamount, int port,int messageAmount) {
-
-
-
-
         if (mode.equals("UDP")) {
 
             try {
-                PrintWriter filereport = new PrintWriter("UDP:"+System.currentTimeMillis(), StandardCharsets.UTF_8);
+                //PrintWriter filereport = new PrintWriter("UDP:"+System.currentTimeMillis(), StandardCharsets.UTF_8);
                 DatagramSocket clientSocket = new DatagramSocket();
 
                 InetAddress IPAddress = InetAddress.getByName(host);
@@ -178,7 +174,7 @@ public class InteractionClient {
 
     public static void main(String[] args) {
 
-        new InteractionClient("TCP","pi.cs.oswego.edu","",8,2770,10);
+        new InteractionClient("TCP","pi.cs.oswego.edu","",1024,2770,1024);
     }
 
 }

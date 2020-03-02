@@ -11,12 +11,27 @@ This means that the effective throughput will be
 _______________TCP_________________________
 
 Laptop(Wireless Shineman Network) -> PI
+8byte
+2520208ns
+64byte
+2807257ns
+1024byte
 
 
 Lab NUC(Wired Shineman Network)-> PI
+8byte
+
+64byte
+
+1024byte
 
 
 Lab NUC(Shineman Wired)-> Altair
+8byte
+
+64byte
+
+1024byte
 
 
 
