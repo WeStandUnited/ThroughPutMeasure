@@ -1,3 +1,4 @@
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -84,21 +85,23 @@ public class Client {
             //System.out.println("Sending:"+sending);
             //System.out.println(sending.length());
             System.out.println("Byte Amount:"+sending.length());
+            long startTime = System.nanoTime();
             out.println(encryptDecrpyt(sending));
             //out.println(sending);
-            long startTime = System.nanoTime();
             String userInput = in.readLine();
             //System.out.println("Receiving:"+ userInput);
+            long estimatedTime = System.nanoTime() - startTime;
+            System.out.println("RTT: "+estimatedTime +"ns");
+            rtt.add(estimatedTime);
             String decrpyted = encryptDecrpyt(userInput);
+
             //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
             if (decrpyted.equals(sending)){
 
                 System.out.println("Validated!");
             }
 
-            long estimatedTime = System.nanoTime() - startTime;
-            System.out.println("RTT: "+estimatedTime +"ns");
-            rtt.add(estimatedTime);
+
 
 
 
@@ -114,46 +117,10 @@ public class Client {
             ex.printStackTrace();
         }
 
+
     }
 
-    public void send(int amount){
 
-        try {
-
-            String sending = generateString(amount);
-            //System.out.println("Sending:"+sending);
-            //System.out.println(sending.length());
-            System.out.println("Byte Amount:"+sending.length());
-            out.println(encryptDecrpyt(sending));
-            //out.println(sending);
-            long startTime = System.nanoTime();
-            String userInput = in.readLine();
-            //System.out.println("Receiving:"+ userInput);
-            String decrpyted = encryptDecrpyt(userInput);
-            //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
-            if (decrpyted.equals(sending)){
-
-                System.out.println("Validated!");
-            }
-
-            long estimatedTime = System.nanoTime() - startTime;
-            System.out.println("RTT: "+estimatedTime +"ns");
-            rtt.add(estimatedTime);
-
-
-
-         /*   while ((userInput = stdIn.readLine()) != null) {
-                out.println(userInput);
-                System.out.println("echo: " + in.readLine());
-                userInput = null;
-            }*/
-
-        }
-        catch (IOException ex) {
-            System.err.println("IO failure.");
-            ex.printStackTrace();
-        }
-    }
     public void close(){
         try {
         out.close();
@@ -167,16 +134,21 @@ public class Client {
     }
 
     public static void main(String[] args) {
+
+
+
+        //
+        // System.out.println(encryptDecrpyt(generateString(256000)).length());
         Client c = new Client();
         //String host = "localhost";
-        String host = "pi.cs.oswego.edu";
-        for (int i = 0;i<10;i++){
-        //c.send(8);
-            c.start(host,1024);
 
+        for (int i = 0;i<20;i++){
+
+            c.start("pi.cs.oswego.edu",1000000);
+            c.close();
         }
 
-        c.close();
+
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
     }
 }

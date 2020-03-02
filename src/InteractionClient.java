@@ -70,13 +70,13 @@ public class InteractionClient {
                     String xorsentence = encryptDecrpyt(sentence);
                     sendData = xorsentence.getBytes();
                     DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                    clientSocket.send(sendPacket);
                     long startTime = System.nanoTime();
+                    clientSocket.send(sendPacket);
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     clientSocket.receive(receivePacket);
                     long estimatedTime = System.nanoTime() - startTime;
                     System.out.println("RTT:" + estimatedTime + "ns");
-
+                    avg.add(estimatedTime);
                     //String modifiedSentence = new String(receivePacket.getData());
 
                     System.out.println("RTT:" + TimeUnit.NANOSECONDS.toMillis(estimatedTime) + "ms");
@@ -84,9 +84,9 @@ public class InteractionClient {
 
 
                 }
-                String quit = "quit";
-                DatagramPacket sendPacket = new DatagramPacket(quit.getBytes(), quit.getBytes().length, IPAddress, port);
-                clientSocket.send(sendPacket);
+//                String quit = "quit";
+//                DatagramPacket sendPacket = new DatagramPacket(quit.getBytes(), quit.getBytes().length, IPAddress, port);
+//                clientSocket.send(sendPacket);
                 clientSocket.close();
 
             } catch (IOException e) {
@@ -125,10 +125,14 @@ public class InteractionClient {
                     //System.out.println("Sending:"+sending);
                     //System.out.println(sending.length());
                     System.out.println("Byte Amount:" + sending.length());
+                    long startTime = System.nanoTime();
+
                     out.println(encryptDecrpyt(sending));
                     //out.println(sending);
-                    long startTime = System.nanoTime();
                     String recieved = in.readLine();
+                    long estimatedTime = System.nanoTime() - startTime;
+                    System.out.println("RTT: " + estimatedTime + "ns");
+                    avg.add(estimatedTime);
                     if (recieved.equals("12345678")){
                         System.out.println("ACK Recieved!");
                     }
@@ -137,9 +141,7 @@ public class InteractionClient {
                     //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
 
 
-                    long estimatedTime = System.nanoTime() - startTime;
-                    System.out.println("RTT: " + estimatedTime + "ns");
-                    avg.add(estimatedTime);
+
 
 
          /*   while ((userInput = stdIn.readLine()) != null) {

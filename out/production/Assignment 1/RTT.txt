@@ -12,10 +12,22 @@ _______________TCP_________________________
 
 Laptop(Wireless Shineman Network) -> PI
 8byte
-2520208ns
+3276865ns
+
 64byte
-2807257ns
+3604221ns
+
 1024byte
+5323722ns
+
+16K
+36888537ns
+
+
+256K
+2752814250ns
+
+1M
 
 
 Lab NUC(Wired Shineman Network)-> PI
@@ -25,13 +37,22 @@ Lab NUC(Wired Shineman Network)-> PI
 
 1024byte
 
-
 Lab NUC(Shineman Wired)-> Altair
 8byte
-
+1094775ns
 64byte
+1193551ns
 
 1024byte
+2101134ns
+
+16K
+42773746ns
+64K
+295106504ns
+256K
+4607905394ns
+
 
 
 
