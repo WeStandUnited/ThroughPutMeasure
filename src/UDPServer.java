@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class UDPServer {
 
-    public void start(String args[])
+    public void start(int amount)
     {
         DatagramSocket serverSocket = null;
         try {
@@ -16,7 +16,7 @@ public class UDPServer {
         {
             //Scanner scan = new Scanner(System.in);
             //System.out.print("How Many bytes:");
-            int amount = 8;
+
             byte[] receiveData = new byte[amount];
             byte[] sendData = new byte[amount];
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -37,7 +37,11 @@ public class UDPServer {
 
 
     public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
 
+        UDPServer u = new UDPServer();
+        System.out.print("Enter Amount of bytes:");
+        u.start(s.nextInt());
     }
 
 
