@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 public class Server {
     static String encryptDecrpyt(String inputString){
@@ -40,13 +41,13 @@ public class Server {
 
                 String cmd = in.readLine();
 
-                if (cmd.length() >= 16000){
+                //if (cmd.length() >= 16000){
 
-                    out.println("12345678");
-                }else{
+                  //  out.println("12345678");
+                //}else{
                     out.println(cmd);
                     System.out.println(cmd);
-                }
+                //}
 
 
 

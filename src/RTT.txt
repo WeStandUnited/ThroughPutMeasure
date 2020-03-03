@@ -69,6 +69,80 @@ Wolf -> PI
 2842799ns
 
 
+16K
+
+87431140ns
+
+256k
+
+
+
+
+Wolf -> PI
+
+8
+
+64
+
+1024
+
+16K
+
+256K
+
+1M
+
+
+
+
+Indigo -> Altair
+
+8
+
+64
+
+1024
+
+16K
+
+256K
+
+1M
+
+
+
+Client:indigo
+Host:altair.cs.oswego.edu
+Port:2770
+Bytes:8
+AVG RTT:1488249ns
+Bytes:64
+AVG RTT:1797479ns
+Bytes:1024
+AVG RTT:1656659ns
+Bytes:16000
+AVG RTT:27787175ns -> 0.027787175s
+Bytes:256000
+AVG RTT:4403037185ns -> ~4s
+Bytes:1000000
+AVG RTT:54275712591ns -> ~54s
+
+Client: wolf
+Host:pi.cs.oswego.edu
+Port:2770
+Bytes:8
+AVG RTT:1584568ns -> 0.001584568s
+Bytes:64
+AVG RTT:1269727ns -> 0.001269727s
+Bytes:1024
+AVG RTT:1941310ns -> 0.00194131s
+Bytes:16000
+AVG RTT:67811112ns -> 0.067811112s
+Bytes:256000
+AVG RTT:12340721885ns -> 12.340721885s
+Bytes:1000000
+AVG RTT: TBT
+
 
 
 

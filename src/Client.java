@@ -180,7 +180,7 @@ public class Client {
     public static void testThroughput(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<30;i++){
+        for (int i = 0;i<1;i++){
             c.startThroughput(host,amount);
         }
         c.close();
@@ -202,6 +202,7 @@ public class Client {
         test(64);
         test(1024);
         testThroughput(16000);
+        testThroughput(64000);
         testThroughput(256000);
         testThroughput(1000000);
 
