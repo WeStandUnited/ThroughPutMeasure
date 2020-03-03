@@ -109,11 +109,48 @@ ________TCP_Interaction____________
 
 
 Altair -> Wolf
-
-1024----1024
-AVG RTT:1345046ns
+1024--1024
+Interaction:1769744482ns
 2048--512
-AVG RTT:772157ns
+Interaction:2247270574ns
 4096--256
-AVG RTT:429577ns
+Interaction:3108434921ns
 
+Indigo-> Pi
+1024--1024
+Interaction:1834998664ns
+2048--512
+Interaction:3092955568ns
+4096--256
+Interaction:5679413119ns
+
+Pi-> Altair
+1024--1024
+Interaction:1528407435ns
+2048--512
+Interaction:2747979061ns
+4096--256
+Interaction:3370000214ns
+
+_____UDP___Interaction________
+Altair -> Wolf
+1024--1024
+
+2048--512
+
+4096--256
+
+Indigo-> Pi
+1024--1024
+
+2048--512
+
+4096--256
+
+
+Pi-> Altair
+1024--1024
+
+2048--512
+
+4096--256

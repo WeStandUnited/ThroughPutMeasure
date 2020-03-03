@@ -110,6 +110,56 @@ public class UDPClient {
             e2.printStackTrace();
         }
     }
+    public void startInteraction(int amount)
+    {
+        //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
+
+
+
+        try {
+            clientSocket = new DatagramSocket();
+
+
+
+            InetAddress IPAddress = InetAddress.getByName(host);
+
+            //Scanner scan = new Scanner(System.in);
+
+
+            //scan.nextInt();
+
+
+            byte[] sendData = new byte[amount];
+
+            String sentence = generateString(amount);//inFromUser.readLine();
+
+            //System.out.println(sentence);
+            String xorsentence = encryptDecrpyt(sentence);
+
+            sendData = xorsentence.getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 2770);
+
+            clientSocket.send(sendPacket);
+
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+    }
+
+    public void getACK(){
+        try {
+        byte[] receiveData = new byte[8];
+        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+
+            clientSocket.receive(receivePacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public long calculateAverage(List<Long> marks) {
         Long sum = 0L;
         if(!marks.isEmpty()) {
@@ -122,26 +172,60 @@ public class UDPClient {
     }
     public static void test(int amount){
         UDPClient u = new UDPClient();
+
         for (int i=0;i < 30;i++){
             u.start(amount);
         }
+
+
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
         u.closeports();
 
     }
 
+    public static void testInteraction(int amount,int cycles){
+        UDPClient u = new UDPClient();
+        long startTime = System.nanoTime();
+
+        for (int i=0;i < cycles;i++){
+            u.startInteraction(amount);
+        }
+        u.getACK();
+        long estimatedTime = System.nanoTime() - startTime;
+
+        System.out.println("Time:"+estimatedTime+"ns");
+        u.closeports();
+
+
+
+    }
+
+
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
+
+        String choice = s.nextLine();
+
+
+
         System.out.print("Host:");
         host = s.nextLine();
 
-        test(8);
-        System.out.println("Run Next test?");
-        s.nextLine();
-        test(64);
-        System.out.println("Run Next test?");
-        s.nextLine();
-        test(1024);
+        if (choice.equalsIgnoreCase("rtt")) {
+            test(8);
+            System.out.println("Run Next test?");
+            s.nextLine();
+            test(64);
+            System.out.println("Run Next test?");
+            s.nextLine();
+            test(1024);
+        }else if (choice.equalsIgnoreCase("i")){
+         ;
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Byte:Cycle");
+            testInteraction(scan.nextInt(),scan.nextInt());
+
+        }
 
 
 

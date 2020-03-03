@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Client {
     static String host;
@@ -160,6 +159,15 @@ public class Client {
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
 
     }
+    public void getACK() {
+        try {
+            in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public static void testInteraction(int amount,int cycles){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
@@ -167,9 +175,12 @@ public class Client {
         for (int i = 0;i<cycles;i++){
             c.startThroughput(host,amount);
         }
-        c.close();
+        System.out.println("Done Sending");
+        c.getACK();
         long endtime = System.nanoTime() - startTime;
         System.out.println("Interaction:"+endtime+"ns");
+        c.close();
+
 
     }
 

@@ -52,7 +52,7 @@ public class Server {
                 //if (cmd.length() >= 16000){
                 if (choice.equalsIgnoreCase("Interaction")){
                     str.append(cmd);
-                    if (cmd.length() == 1000000)out.println("12345678");
+                    if (str.toString().length() == 1000000)out.println("12345678");
 
                 }else if  (choice.equalsIgnoreCase("RTT")){
                     out.println(cmd);
