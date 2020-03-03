@@ -39,8 +39,15 @@ public class Server {
                         new BufferedReader(new InputStreamReader(client.getInputStream()));
 
                 String cmd = in.readLine();
-                out.println(cmd);
-                System.out.println(cmd);
+
+                if (cmd.length() >= 16000){
+
+                    out.println("12345678");
+                }else{
+                    out.println(cmd);
+                    System.out.println(cmd);
+                }
+
 
 
                 cmd = null;

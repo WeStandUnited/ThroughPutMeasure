@@ -90,6 +90,7 @@ public class Client {
 
             out.println(encrypted);
 
+            //out.write(encrypted);
             String serverecho = in.readLine();
 
             long estimatedTime = System.nanoTime() - startTime;
@@ -100,6 +101,48 @@ public class Client {
 
                 System.out.println("Validation Error!");
             }
+
+
+        }
+        catch (IOException ex) {
+            System.err.println("IO failure.");
+            ex.printStackTrace();
+        }
+
+
+    }
+    public void startThroughput(String host,int amount) {
+
+        try {
+            sock = new Socket(host, Port);
+            out = new PrintWriter(sock.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + host);
+            e.printStackTrace();
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection.");
+            e.printStackTrace();
+            System.exit(1);
+        }
+        try {
+
+            String sending = generateString(amount);
+
+            long startTime = System.nanoTime();
+
+            String encrypted = encryptDecrpyt(sending);
+
+            out.println(encrypted);
+
+            String serverecho = in.readLine();
+
+            long estimatedTime = System.nanoTime() - startTime;
+
+            rtt.add(estimatedTime);
+
 
 
         }
@@ -129,31 +172,39 @@ public class Client {
         System.out.println("Bytes:"+amount);
         for (int i = 0;i<30;i++){
             c.start(host,amount);
-            c.close();
         }
+        c.close();
+
+        System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
+
+    }
+    public static void testThroughput(int amount){
+        Client c = new Client();
+        System.out.println("Bytes:"+amount);
+        for (int i = 0;i<30;i++){
+            c.startThroughput(host,amount);
+        }
+        c.close();
+
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
 
     }
 
+
     public static void main(String[] args) {
 
-
-
-        //
-        // System.out.println(encryptDecrpyt(generateString(256000)).length());
-        //String host = "localhost";
         Scanner s = new Scanner(System.in);
         System.out.print("Host:");
         host = s.nextLine();
-        s.nextLine();
+
         System.out.print("Port:");
         Port = s.nextInt();
         test(8);
         test(64);
         test(1024);
-        test(16000);
-        test(256000);
-        test(1000000);
+        testThroughput(16000);
+        testThroughput(256000);
+        testThroughput(1000000);
 
 
 
