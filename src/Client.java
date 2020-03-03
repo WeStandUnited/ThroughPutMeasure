@@ -126,30 +126,12 @@ public class Client {
             e.printStackTrace();
             System.exit(1);
         }
-        try {
 
-            String sending = generateString(amount);
+        String sending = generateString(amount);
 
-            long startTime = System.nanoTime();
+        String encrypted = encryptDecrpyt(sending);
 
-            String encrypted = encryptDecrpyt(sending);
-
-            out.println(encrypted);
-
-            String serverecho = in.readLine();
-
-            long estimatedTime = System.nanoTime() - startTime;
-
-
-            rtt.add(estimatedTime);
-
-
-
-        }
-        catch (IOException ex) {
-            System.err.println("IO failure.");
-            ex.printStackTrace();
-        }
+        out.println(encrypted);
 
 
     }
@@ -181,12 +163,13 @@ public class Client {
     public static void testInteraction(int amount,int cycles){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
+        long startTime = System.nanoTime();
         for (int i = 0;i<cycles;i++){
             c.startThroughput(host,amount);
         }
         c.close();
-
-        System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
+        long endtime = System.nanoTime() - startTime;
+        System.out.println("Interaction:"+endtime+"ns");
 
     }
 

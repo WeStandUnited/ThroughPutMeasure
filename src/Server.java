@@ -29,6 +29,8 @@ public class Server {
     }
     public static void main(String[] args) {
         try {
+            String meg = "";
+            StringBuilder str = new StringBuilder(meg);
             Scanner s = new Scanner(System.in);
             System.out.println("Interaction or RTT?:");
             String choice = s.nextLine();
@@ -49,7 +51,8 @@ public class Server {
 
                 //if (cmd.length() >= 16000){
                 if (choice.equalsIgnoreCase("Interaction")){
-                    out.println("12345678");
+                    str.append(cmd);
+                    if (cmd.length() == 1000000)out.println("12345678");
 
                 }else if  (choice.equalsIgnoreCase("RTT")){
                     out.println(cmd);

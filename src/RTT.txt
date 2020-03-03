@@ -102,3 +102,18 @@ AVG_RTT:841750ns
 Run Next test?
 1024
 AVG_RTT:1215172ns
+
+
+
+________TCP_Interaction____________
+
+
+Altair -> Wolf
+
+1024----1024
+AVG RTT:1345046ns
+2048--512
+AVG RTT:772157ns
+4096--256
+AVG RTT:429577ns
+
