@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class UDPClient {
 
+    public static String host;
 
     List<Long> rtt = new ArrayList<>();
 
@@ -53,7 +54,7 @@ public class UDPClient {
 
     }
 
-    public void start(int amount,String host)
+    public void start(int amount)
     {
         //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
 
@@ -92,17 +93,17 @@ public class UDPClient {
 
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
-        System.out.println("RTT:"+estimatedTime+"ns");
+        //System.out.println("RTT:"+estimatedTime+"ns");
             rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 
         //System.out.println("FROM SERVER:" + encryptDecrpyt(modifiedSentence));
 
-        if (sentence.equals(encryptDecrpyt(modifiedSentence))){
-            System.out.println("Validated!");
+        if (!(sentence.equals(encryptDecrpyt(modifiedSentence)))){
+            System.out.println("Not Validated!");
         }
 
-        System.out.println("RTT:"+TimeUnit.NANOSECONDS.toMillis(estimatedTime)+"ms");
+        //System.out.println("RTT:"+TimeUnit.NANOSECONDS.toMillis(estimatedTime)+"ms");
 
 
         } catch (IOException e2) {
@@ -119,16 +120,30 @@ public class UDPClient {
         }
         return sum;
     }
-
-    public static void main(String[] args) {
-
-
+    public static void test(int amount){
         UDPClient u = new UDPClient();
         for (int i=0;i < 30;i++){
-            u.start(16000, "localhost");
+            u.start(amount);
         }
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
         u.closeports();
+
+    }
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Host:");
+        host = s.nextLine();
+
+        test(8);
+        System.out.println("Run Next test?");
+        s.nextLine();
+        test(64);
+        System.out.println("Run Next test?");
+        s.nextLine();
+        test(1024);
+
+
 
 
     }
