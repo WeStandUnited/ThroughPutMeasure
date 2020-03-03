@@ -90,7 +90,6 @@ public class Client {
 
             out.println(encrypted);
 
-            //out.write(encrypted);
             String serverecho = in.readLine();
 
             long estimatedTime = System.nanoTime() - startTime;
