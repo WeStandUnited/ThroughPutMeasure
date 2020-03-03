@@ -10,122 +10,24 @@ This means that the effective throughput will be
 
 _______________TCP_________________________
 
-Laptop(Wired Shineman Network) -> PI
-8byte
-1589449ns
-
-64byte
-1679895ns
-
-
-1024byte
-3413272ns
-
-16K
-25997877ns
-
-
-256K
-2693461131ns
-
-
-1M
-44990890204ns
-
-
-Lab NUC(Wired Shineman Network)-> PI
-8byte
-
-64byte
-
-1024byte
-
-Lab NUC(Shineman Wired)-> Altair
-8byte
-
-64byte
-
-1024byte
-
-16K
-
-64K
-
-256K
-
-
-Wolf -> PI
-
-8
-
-899702ns
-
-64
-
-987818ns
-
-1024byte
-
-2842799ns
-
-
-16K
-
-87431140ns
-
-256k
-
-
-
-
-Wolf -> PI
-
-8
-
-64
-
-1024
-
-16K
-
-256K
-
-1M
-
-
-
-
-Indigo -> Altair
-
-8
-
-64
-
-1024
-
-16K
-
-256K
-
-1M
-
-
-
-Client:indigo
-Host:altair.cs.oswego.edu
+indigo:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
+Host:wolf.cs.oswego.edu
 Port:2770
 Bytes:8
-AVG RTT:1488249ns
+AVG RTT:1290438ns
 Bytes:64
-AVG RTT:1797479ns
+AVG RTT:1088770ns
 Bytes:1024
-AVG RTT:1656659ns
+AVG RTT:1360896ns
 Bytes:16000
-AVG RTT:27787175ns -> 0.027787175s
+AVG RTT:57779404ns
+Bytes:64000
+AVG RTT:476627829ns
 Bytes:256000
-AVG RTT:4403037185ns -> ~4s
+AVG RTT:4470557655ns
 Bytes:1000000
-AVG RTT:54275712591ns -> ~54s
+AVG RTT:56551806457ns
+
 
 wolf:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
 Host:pi.cs.oswego.edu
@@ -145,6 +47,22 @@ AVG RTT:13243269046ns
 Bytes:1000000
 AVG RTT:198831018749ns
 
+altair ->Host:wolf.cs.oswego.edu
+Port:2770
+Bytes:8
+AVG RTT:1696399ns
+Bytes:64
+AVG RTT:1166482ns
+Bytes:1024
+AVG RTT:2179610ns
+Bytes:16000
+AVG RTT:126721878ns
+Bytes:64000
+AVG RTT:1098746895ns
+Bytes:256000
+AVG RTT:13889760295ns
+Bytes:1000000
+AVG RTT:259122480572ns
 
 
 
@@ -152,26 +70,35 @@ AVG RTT:198831018749ns
 
 ________________UDP______________________
 
-PI-> Wolf (Hard Wired:CS Network)
+wolf->Host:pi.cs.oswego.edu
 
 8
-
+AVG_RTT:1386156ns
+Run Next test?
 64
-
+AVG_RTT:1678978ns
+Run Next test?
 1024
+AVG_RTT:1591979ns
 
 
-PI -> Altair(Hardwired:CS Network)
+indigo->Host:altair.cs.oswego.edu
 8
-675215ns
-
+AVG_RTT:1164187ns
+Run Next test?
 64
-721744ns
-
-
+AVG_RTT:1275099ns
+Run Next test?
 1024
+AVG_RTT:1830023ns
 
-920396ns
 
-
-Desktop -> Pi (Wireless:Home Network)
+wolf-> Host:indigo.cs.oswego.edu
+8
+AVG_RTT:863671ns
+Run Next test?
+64
+AVG_RTT:841750ns
+Run Next test?
+1024
+AVG_RTT:1215172ns

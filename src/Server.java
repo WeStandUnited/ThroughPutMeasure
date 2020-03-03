@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Server {
@@ -28,6 +29,11 @@ public class Server {
     }
     public static void main(String[] args) {
         try {
+            Scanner s = new Scanner(System.in);
+            System.out.println("Interaction or RTT?:");
+            String choice = s.nextLine();
+
+
             ServerSocket serverSocket = new ServerSocket(2770);
 
             for (;;) {
@@ -42,11 +48,16 @@ public class Server {
                 String cmd = in.readLine();
 
                 //if (cmd.length() >= 16000){
+                if (choice.equalsIgnoreCase("Interaction")){
+                    out.println("12345678");
 
-                  //  out.println("12345678");
-                //}else{
+                }else if  (choice.equalsIgnoreCase("RTT")){
                     out.println(cmd);
                     System.out.println(cmd);
+                }
+                //}else{
+                  //  out.println(cmd);
+                    //System.out.println(cmd);
                 //}
 
 

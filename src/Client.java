@@ -140,6 +140,7 @@ public class Client {
 
             long estimatedTime = System.nanoTime() - startTime;
 
+
             rtt.add(estimatedTime);
 
 
@@ -177,10 +178,10 @@ public class Client {
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
 
     }
-    public static void testThroughput(int amount){
+    public static void testInteraction(int amount,int cycles){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<1;i++){
+        for (int i = 0;i<cycles;i++){
             c.startThroughput(host,amount);
         }
         c.close();
@@ -193,18 +194,35 @@ public class Client {
     public static void main(String[] args) {
 
         Scanner s = new Scanner(System.in);
+        System.out.println("Interaction or RTT?:");
+        String choice = s.nextLine();
+
         System.out.print("Host:");
         host = s.nextLine();
 
         System.out.print("Port:");
         Port = s.nextInt();
-        test(8);
-        test(64);
-        test(1024);
-        testThroughput(16000);
-        testThroughput(64000);
-        testThroughput(256000);
-        testThroughput(1000000);
+
+        if (choice.equalsIgnoreCase("RTT")) {
+            test(8);
+            test(64);
+            test(1024);
+            test(16000);
+            test(64000);
+            test(256000);
+            test(1000000);
+        }else if (choice.equalsIgnoreCase("Interaction")){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter Bytes:");
+            int amount = sc.nextInt();
+            System.out.print("Enter Cycles:");
+            int cycles = sc.nextInt();
+
+            testInteraction(amount,cycles);
+
+        }
+
+
 
 
 
