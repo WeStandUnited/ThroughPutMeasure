@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
     Socket sock = null;
@@ -63,7 +64,7 @@ public class Client {
 
     public void start(String host,int amount) {
 
-        int Port = 2770;
+        int Port = 2771;
         try {
             sock = new Socket(host, Port);
             if (sock.isConnected()) System.out.println("Connected!");
@@ -86,17 +87,18 @@ public class Client {
             //System.out.println(sending.length());
             System.out.println("Byte Amount:"+sending.length());
             long startTime = System.nanoTime();
-            out.println(encryptDecrpyt(sending));
+            String encrypted = encryptDecrpyt(sending);
+            out.println(encrypted);
             //out.println(sending);
             String userInput = in.readLine();
             //System.out.println("Receiving:"+ userInput);
             long estimatedTime = System.nanoTime() - startTime;
             System.out.println("RTT: "+estimatedTime +"ns");
             rtt.add(estimatedTime);
-            String decrpyted = encryptDecrpyt(userInput);
+            //String decrpyted = encryptDecrpyt(userInput);
 
             //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
-            if (decrpyted.equals(sending)){
+            if (userInput.equals(encrypted)){
 
                 System.out.println("Validated!");
             }
@@ -145,6 +147,11 @@ public class Client {
         for (int i = 0;i<20;i++){
 
             c.start("pi.cs.oswego.edu",1000000);
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             c.close();
         }
 

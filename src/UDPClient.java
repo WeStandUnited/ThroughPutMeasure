@@ -125,7 +125,7 @@ public class UDPClient {
 
         UDPClient u = new UDPClient();
         for (int i=0;i < 100;i++){
-            u.start(8, "pi.cs.oswego.edu");
+            u.start(16000, "localhost");
         }
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
         u.closeports();

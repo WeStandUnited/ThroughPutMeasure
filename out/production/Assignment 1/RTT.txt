@@ -10,24 +10,27 @@ This means that the effective throughput will be
 
 _______________TCP_________________________
 
-Laptop(Wireless Shineman Network) -> PI
+Laptop(Wired Shineman Network) -> PI
 8byte
-3276865ns
+1589449ns
 
 64byte
-3604221ns
+1679895ns
+
 
 1024byte
-5323722ns
+3413272ns
 
 16K
-36888537ns
+25997877ns
 
 
 256K
-2752814250ns
+2693461131ns
+
 
 1M
+44990890204ns
 
 
 Lab NUC(Wired Shineman Network)-> PI
@@ -39,31 +42,65 @@ Lab NUC(Wired Shineman Network)-> PI
 
 Lab NUC(Shineman Wired)-> Altair
 8byte
-1094775ns
+
 64byte
-1193551ns
 
 1024byte
-2101134ns
 
 16K
-42773746ns
+
 64K
-295106504ns
+
 256K
-4607905394ns
+
+
+Wolf -> PI
+
+8
+
+899702ns
+
+64
+
+987818ns
+
+1024byte
+
+2842799ns
+
+
+16K
+
+87431140ns
+
+256k
+
 
 
 
 
 ________________UDP______________________
 
-Home PC -> Pi(Hard Wired:Home Network)
+PI-> Wolf (Hard Wired:CS Network)
+
+8
+
+64
+
+1024
 
 
+PI -> Altair(Hardwired:CS Network)
+8
+675215ns
 
-PI -> Wolf(Hardwired:CS Network)
+64
+721744ns
 
 
-Laptop -> Pi (Wireless:Home Network)
+1024
 
+920396ns
+
+
+Desktop -> Pi (Wireless:Home Network)
