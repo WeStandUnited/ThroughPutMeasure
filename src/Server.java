@@ -39,15 +39,10 @@ public class Server {
                         new BufferedReader(new InputStreamReader(client.getInputStream()));
 
                 String cmd = in.readLine();
-                System.out.println(cmd);
                 out.println(cmd);
+                System.out.println(cmd);
 
-                if (cmd.equals("quit")){
-                    out.close();
-                    in.close();
-                    client.close();
-                    System.exit(0);
-                }
+
                 cmd = null;
 
 

@@ -11,6 +11,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Client {
+    static String host;
+    static int Port;
     Socket sock = null;
     PrintWriter out = null;
     BufferedReader in = null;
@@ -64,10 +66,8 @@ public class Client {
 
     public void start(String host,int amount) {
 
-        int Port = 2771;
         try {
             sock = new Socket(host, Port);
-            if (sock.isConnected()) System.out.println("Connected!");
             out = new PrintWriter(sock.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
@@ -83,35 +83,24 @@ public class Client {
         try {
 
             String sending = generateString(amount);
-            //System.out.println("Sending:"+sending);
-            //System.out.println(sending.length());
-            System.out.println("Byte Amount:"+sending.length());
+
             long startTime = System.nanoTime();
+
             String encrypted = encryptDecrpyt(sending);
+
             out.println(encrypted);
-            //out.println(sending);
-            String userInput = in.readLine();
-            //System.out.println("Receiving:"+ userInput);
+
+            String serverecho = in.readLine();
+
             long estimatedTime = System.nanoTime() - startTime;
-            System.out.println("RTT: "+estimatedTime +"ns");
+
             rtt.add(estimatedTime);
-            //String decrpyted = encryptDecrpyt(userInput);
 
-            //System.out.println("Receiving:"+ encryptDecrpyt(userInput));
-            if (userInput.equals(encrypted)){
+            if (!(serverecho.equals(encrypted))){
 
-                System.out.println("Validated!");
+                System.out.println("Validation Error!");
             }
 
-
-
-
-
-         /*   while ((userInput = stdIn.readLine()) != null) {
-                out.println(userInput);
-                System.out.println("echo: " + in.readLine());
-                userInput = null;
-            }*/
 
         }
         catch (IOException ex) {
@@ -135,27 +124,39 @@ public class Client {
         }
     }
 
+    public static void test(int amount){
+        Client c = new Client();
+        System.out.println("Bytes:"+amount);
+        for (int i = 0;i<30;i++){
+            c.start(host,amount);
+            c.close();
+        }
+        System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
+
+    }
+
     public static void main(String[] args) {
 
 
 
         //
         // System.out.println(encryptDecrpyt(generateString(256000)).length());
-        Client c = new Client();
         //String host = "localhost";
+        Scanner s = new Scanner(System.in);
+        System.out.print("Host:");
+        host = s.nextLine();
+        s.nextLine();
+        System.out.print("Port:");
+        Port = s.nextInt();
+        test(8);
+        test(64);
+        test(1024);
+        test(16000);
+        test(256000);
+        test(1000000);
 
-        for (int i = 0;i<20;i++){
-
-            c.start("pi.cs.oswego.edu",1000000);
-            try {
-                TimeUnit.MILLISECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            c.close();
-        }
 
 
-        System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
+
     }
 }
