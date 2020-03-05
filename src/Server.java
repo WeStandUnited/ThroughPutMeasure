@@ -38,10 +38,12 @@ public class Server {
 
             ServerSocket serverSocket = new ServerSocket(2770);
 
+            int i = 0;
+
             for (;;) {
                 Socket client = serverSocket.accept();
 
-                if (client.isConnected()) System.out.println("Client Connected!");
+                if (client.isConnected()) System.out.println("Client Connected!"+"["+i++ +"]");
 
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);
                 BufferedReader in =
@@ -52,7 +54,8 @@ public class Server {
                 //if (cmd.length() >= 16000){
                 if (choice.equalsIgnoreCase("Interaction")){
                     str.append(cmd);
-                    if (str.toString().length() == 1000000)out.println("12345678");
+                    System.out.println(str.toString().length());
+                    if (str.toString().length() == 1048576)out.println("12345678");
 
                 }else if  (choice.equalsIgnoreCase("RTT")){
                     out.println(cmd);

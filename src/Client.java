@@ -169,21 +169,31 @@ public class Client {
     public static void test(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<1;i++){
+        for (int i = 0;i<30;i++){
             c.start(host,amount);
         }
         c.close();
 
+
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
 
     }
-    public void getACK() {
+    public String getACK() {
         try {
-            in.readLine();
+            String j =  in.readLine();
+            if (j != null){
+                return j;
+            }else {
+                return null;
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
+
 
 
     public static void testInteraction(int amount,int cycles){
@@ -193,8 +203,8 @@ public class Client {
         for (int i = 0;i<cycles;i++){
             c.startThroughput(host,amount);
         }
-        c.getACK();
-        System.out.println("Done Sending");
+        System.out.println(c.getACK());
+
         long endtime = System.nanoTime() - startTime;
         System.out.println("Interaction:"+endtime+"ns");
         c.close();

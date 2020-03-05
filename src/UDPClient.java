@@ -95,7 +95,7 @@ public class UDPClient {
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
         System.out.println("RTT:"+estimatedTime+"ns");
-            //rtt.add(estimatedTime);
+        rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 
         //System.out.println("FROM SERVER:" + encryptDecrpyt(modifiedSentence));
