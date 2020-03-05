@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class UDPClient {
 
     public static String host;
-
+    public static int ACK_Count = 0;
     List<Long> rtt = new ArrayList<>();
 
     DatagramSocket clientSocket = null;
@@ -131,7 +131,7 @@ public class UDPClient {
 
 
             byte[] sendData = new byte[amount];
-
+            byte[]receiveData = new byte[8];
             String sentence = generateString(amount);//inFromUser.readLine();
 
             //System.out.println(sentence);
@@ -142,11 +142,11 @@ public class UDPClient {
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 2770);
 
             clientSocket.send(sendPacket);
-            byte[] receiveData = new byte[8];
-
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
             clientSocket.receive(receivePacket);
+            ACK_Count++;
+
 
 
         } catch (IOException e2) {
@@ -154,15 +154,18 @@ public class UDPClient {
         }
     }
 
-    public void getACK(){
+    public String getACK(){
         try {
         byte[] receiveData = new byte[8];
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
 
             clientSocket.receive(receivePacket);
+
+            return new String(receivePacket.getData());
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
 
@@ -187,6 +190,9 @@ public class UDPClient {
 
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
         u.closeports();
+    //684032
+    //708608
+    //708608
 
     }
 
@@ -194,7 +200,8 @@ public class UDPClient {
         UDPClient u = new UDPClient();
         long startTime = System.nanoTime();
 
-        for (int i=0;i < cycles;i++){
+        while (ACK_Count != cycles +1){
+            System.out.println(ACK_Count);
             u.startInteraction(amount);
         }
         long estimatedTime = System.nanoTime() - startTime;
@@ -226,8 +233,9 @@ public class UDPClient {
             s.nextLine();
             test(1024);
         }else if (choice.equalsIgnoreCase("i")){
-         ;
+
             Scanner scan = new Scanner(System.in);
+
             System.out.println("Byte:Cycle");
             testInteraction(scan.nextInt(),scan.nextInt());
 
