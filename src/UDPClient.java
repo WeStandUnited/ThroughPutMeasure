@@ -111,7 +111,7 @@ public class UDPClient {
             e2.printStackTrace();
         }
     }
-    public void startInteraction(int amount)
+    public void startInteraction(int amount,String sender)
     {
         //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
 
@@ -132,12 +132,10 @@ public class UDPClient {
 
             byte[] sendData = new byte[amount];
             byte[]receiveData = new byte[8];
-            String sentence = generateString(amount);//inFromUser.readLine();
 
             //System.out.println(sentence);
-            String xorsentence = encryptDecrpyt(sentence);
 
-            sendData = xorsentence.getBytes();
+            sendData = sender.getBytes();
 
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 2770);
 
@@ -198,11 +196,12 @@ public class UDPClient {
 
     public static void testInteraction(int amount,int cycles){
         UDPClient u = new UDPClient();
+        String en = encryptDecrpyt(generateString(amount));
         long startTime = System.nanoTime();
 
         while (ACK_Count != cycles +1){
             System.out.println(ACK_Count);
-            u.startInteraction(amount);
+            u.startInteraction(amount,en);
         }
         long estimatedTime = System.nanoTime() - startTime;
 
