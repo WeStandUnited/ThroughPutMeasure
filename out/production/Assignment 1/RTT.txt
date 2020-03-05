@@ -10,60 +10,58 @@ This means that the effective throughput will be
 
 _______________TCP_________________________
 
-indigo:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
+pi:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
+Interaction or RTT?:
+rtt
+Host:indigo.cs.oswego.edu
+Port:2770
+Bytes:8
+AVG RTT:361483ns
+Bytes:64
+AVG RTT:1044326ns
+Bytes:1024
+AVG RTT:525014ns
+Bytes:16000
+AVG RTT:2069942ns TP:15.45937MBPS
+Bytes:64000
+AVG RTT:3570851ns TP:35.84579
+Bytes:256000
+AVG RTT:7209358ns TP:71.01880MBPS
+
+
+altair:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
+Interaction or RTT?:
+rtt
 Host:wolf.cs.oswego.edu
 Port:2770
 Bytes:8
-AVG RTT:1290438ns
+AVG RTT:447475ns
 Bytes:64
-AVG RTT:1088770ns
+AVG RTT:420609ns
 Bytes:1024
-AVG RTT:1360896ns
+AVG RTT:572122ns
 Bytes:16000
-AVG RTT:57779404ns
+AVG RTT:1509516ns TP:21.19884 MBPS
 Bytes:64000
-AVG RTT:476627829ns
+AVG RTT:2935296ns TP:43.60718 MBPS
 Bytes:256000
-AVG RTT:4470557655ns
-Bytes:1000000
-AVG RTT:56551806457ns
+AVG RTT:9178264ns TP:55.78396 MBPS
+
+NUC-> PI
+
+8 bytes	713731ns
+64 bytes	"1012907ns
+"
+1024 bytes	"645709ns
+"
 
 
-wolf:~/Networking/Assignment1/ThroughPutMeasure/src> java Client.java
-Host:pi.cs.oswego.edu
-Port:2770
-Bytes:8
-AVG RTT:1510021ns
-Bytes:64
-AVG RTT:1369234ns
-Bytes:1024
-AVG RTT:1626980ns
 Bytes:16000
-AVG RTT:128556434ns
+AVG RTT:2291339ns TP:13.96563mbps
 Bytes:64000
-AVG RTT:990083487ns
+AVG RTT:3409651ns TP:37.54049mbps
 Bytes:256000
-AVG RTT:13243269046ns
-Bytes:1000000
-AVG RTT:198831018749ns
-
-altair ->Host:wolf.cs.oswego.edu
-Port:2770
-Bytes:8
-AVG RTT:1696399ns
-Bytes:64
-AVG RTT:1166482ns
-Bytes:1024
-AVG RTT:2179610ns
-Bytes:16000
-AVG RTT:126721878ns
-Bytes:64000
-AVG RTT:1098746895ns
-Bytes:256000
-AVG RTT:13889760295ns
-Bytes:1000000
-AVG RTT:259122480572ns
-
+AVG RTT:10749553ns TP:47.62988mbps
 
 
 

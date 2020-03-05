@@ -85,16 +85,17 @@ public class UDPClient {
 
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 2770);
 
-        clientSocket.send(sendPacket);
         long startTime = System.nanoTime();
+
+        clientSocket.send(sendPacket);
 
 
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
-        //System.out.println("RTT:"+estimatedTime+"ns");
-            rtt.add(estimatedTime);
+        System.out.println("RTT:"+estimatedTime+"ns");
+            //rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 
         //System.out.println("FROM SERVER:" + encryptDecrpyt(modifiedSentence));

@@ -1,8 +1,5 @@
+import java.io.*;
 import java.util.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -81,24 +78,43 @@ public class Client {
         }
         try {
 
-            String sending = generateString(amount);
-            String encrypted = encryptDecrpyt(sending);
+            if (amount == 1000000){
+                Scanner scanner = new Scanner(new File("1meg.txt"));
+                    String line = scanner.nextLine();
+                    // process the line
+                long startTime2 = System.nanoTime();
+                out.println(line);
+                String serverecho2 = in.readLine();
+                if (!(serverecho2.equals(line))){
 
-            System.out.println("Done Encrypting");
-            long startTime = System.nanoTime();
+                    System.out.println("Validation Error!");
+                }
+                long estimatedTime = System.nanoTime() - startTime2;
+                rtt.add(estimatedTime);
 
 
-            out.println(encrypted);
+            }else {
 
-            String serverecho = in.readLine();
 
-            long estimatedTime = System.nanoTime() - startTime;
+                String sending = generateString(amount);
+                String encrypted = encryptDecrpyt(sending);
 
-            rtt.add(estimatedTime);
+                System.out.println("Done Encrypting");
+                long startTime = System.nanoTime();
 
-            if (!(serverecho.equals(encrypted))){
 
-                System.out.println("Validation Error!");
+                out.println(encrypted);
+
+                String serverecho = in.readLine();
+
+                long estimatedTime = System.nanoTime() - startTime;
+
+                rtt.add(estimatedTime);
+
+                if (!(serverecho.equals(encrypted))) {
+
+                    System.out.println("Validation Error!");
+                }
             }
 
 
@@ -153,7 +169,7 @@ public class Client {
     public static void test(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<30;i++){
+        for (int i = 0;i<1;i++){
             c.start(host,amount);
         }
         c.close();
@@ -201,9 +217,9 @@ public class Client {
             //test(8);
             //test(64);
             //test(1024);
-            test(16000);
-            test(64000);
-            test(256000);
+            //test(16000);
+            //test(64000);
+            //test(256000);
             test(1000000);
         }else if (choice.equalsIgnoreCase("Interaction")){
             Scanner sc = new Scanner(System.in);
