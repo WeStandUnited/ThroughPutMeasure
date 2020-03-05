@@ -153,7 +153,7 @@ public class Client {
     public static void test(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<1;i++){
+        for (int i = 0;i<30;i++){
             c.start(host,amount);
         }
         c.close();
