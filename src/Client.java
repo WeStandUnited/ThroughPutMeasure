@@ -82,10 +82,11 @@ public class Client {
         try {
 
             String sending = generateString(amount);
+            String encrypted = encryptDecrpyt(sending);
 
+            System.out.println("Done Encrypting");
             long startTime = System.nanoTime();
 
-            String encrypted = encryptDecrpyt(sending);
 
             out.println(encrypted);
 
@@ -130,6 +131,7 @@ public class Client {
 
         String encrypted = encryptDecrpyt(sending);
 
+
         out.println(encrypted);
 
 
@@ -151,7 +153,7 @@ public class Client {
     public static void test(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
-        for (int i = 0;i<30;i++){
+        for (int i = 0;i<1;i++){
             c.start(host,amount);
         }
         c.close();
@@ -165,9 +167,9 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
+
     public static void testInteraction(int amount,int cycles){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
@@ -175,13 +177,11 @@ public class Client {
         for (int i = 0;i<cycles;i++){
             c.startThroughput(host,amount);
         }
-        System.out.println("Done Sending");
         c.getACK();
+        System.out.println("Done Sending");
         long endtime = System.nanoTime() - startTime;
         System.out.println("Interaction:"+endtime+"ns");
         c.close();
-
-
     }
 
 
@@ -198,9 +198,9 @@ public class Client {
         Port = s.nextInt();
 
         if (choice.equalsIgnoreCase("RTT")) {
-            test(8);
-            test(64);
-            test(1024);
+            //test(8);
+            //test(64);
+            //test(1024);
             test(16000);
             test(64000);
             test(256000);

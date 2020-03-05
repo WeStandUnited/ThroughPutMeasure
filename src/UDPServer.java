@@ -40,10 +40,11 @@ public class UDPServer {
         DatagramSocket serverSocket = null;
         try {
             serverSocket = new DatagramSocket(2770);
-
+            int messagenum = 0;
 
             while(true)
             {
+
                 //Scanner scan = new Scanner(System.in);
                 //System.out.print("How Many bytes:");
 
@@ -52,7 +53,8 @@ public class UDPServer {
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 serverSocket.receive(receivePacket);
                 String sentence = new String( receivePacket.getData());
-                System.out.println("RECEIVED: " + sentence);
+                System.out.println("RECEIVED: " + sentence+"["+messagenum+"]");
+                messagenum++;
                 InetAddress IPAddress = receivePacket.getAddress();
                 int port = receivePacket.getPort();
                 sendData = sentence.getBytes();

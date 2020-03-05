@@ -141,6 +141,12 @@ public class UDPClient {
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 2770);
 
             clientSocket.send(sendPacket);
+            byte[] receiveData = new byte[8];
+
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+
+            clientSocket.receive(receivePacket);
+
 
         } catch (IOException e2) {
             e2.printStackTrace();
@@ -190,7 +196,6 @@ public class UDPClient {
         for (int i=0;i < cycles;i++){
             u.startInteraction(amount);
         }
-        u.getACK();
         long estimatedTime = System.nanoTime() - startTime;
 
         System.out.println("Time:"+estimatedTime+"ns");

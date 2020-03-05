@@ -124,6 +124,7 @@ Interaction:3092955568ns
 4096--256
 Interaction:5679413119ns
 
+
 Pi-> Altair
 1024--1024
 Interaction:1528407435ns
@@ -135,22 +136,25 @@ Interaction:3370000214ns
 _____UDP___Interaction________
 Altair -> Wolf
 1024--1024
-
+Time:845078045ns
 2048--512
-
+Time:761892659ns
 4096--256
+Time:842876580ns
 
 Indigo-> Pi
 1024--1024
-
+Time:447729250ns
 2048--512
-
+Time:426051000ns
 4096--256
+Time:453198831ns
 
 
 Pi-> Altair
 1024--1024
-
+Time:876219620ns
 2048--512
-
+Time:765297056ns
 4096--256
+Time:720137423ns
