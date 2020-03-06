@@ -94,7 +94,7 @@ public class UDPClient {
 
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
-        //System.out.println("RTT:"+estimatedTime+"ns");
+        System.out.println("RTT:"+estimatedTime+"ns");
         rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 

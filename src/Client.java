@@ -125,7 +125,7 @@ public class Client {
 
 
     }
-    public void startThroughput(String host,int amount) {
+    public void startThroughput(String host,int amount,String send) {
 
         try {
             sock = new Socket(host, Port);
@@ -142,12 +142,10 @@ public class Client {
             System.exit(1);
         }
 
-        String sending = generateString(amount);
-
-        String encrypted = encryptDecrpyt(sending);
 
 
-        out.println(encrypted);
+
+        out.println(send);
 
 
     }
@@ -204,9 +202,12 @@ public class Client {
     public static void testInteraction(int amount,int cycles){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
+        String sending = generateString(amount);
+
+        String encrypted = encryptDecrpyt(sending);
         long startTime = System.nanoTime();
         for (int i = 0;i<cycles;i++){
-            c.startThroughput(host,amount);
+            c.startThroughput(host,amount,encrypted);
         }
         System.out.println(c.getACK());
 
