@@ -94,7 +94,7 @@ public class UDPClient {
 
         clientSocket.receive(receivePacket);
         long estimatedTime = System.nanoTime() - startTime;
-        System.out.println("RTT:"+estimatedTime+"ns");
+        //System.out.println("RTT:"+estimatedTime+"ns");
         rtt.add(estimatedTime);
         String modifiedSentence = new String(receivePacket.getData());
 
@@ -113,9 +113,6 @@ public class UDPClient {
     }
     public void startInteraction(int amount,String sender)
     {
-        //InputStream is = new ByteArrayInputStream( myString.getBytes( charset ) );
-
-
 
         try {
             clientSocket = new DatagramSocket();
@@ -187,6 +184,7 @@ public class UDPClient {
 
 
         System.out.println("AVG_RTT:"+u.calculateAverage(u.rtt)+"ns");
+        u.rtt.clear();
         u.closeports();
     //684032
     //708608

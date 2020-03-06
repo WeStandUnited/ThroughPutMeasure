@@ -60,7 +60,7 @@ public class Client {
 
 
 
-    public void start(String host,int amount) {
+    public void start(String host,int amount,String send) {
 
         try {
             sock = new Socket(host, Port);
@@ -96,14 +96,13 @@ public class Client {
             }else {
 
 
-                String sending = generateString(amount);
-                String encrypted = encryptDecrpyt(sending);
 
-                System.out.println("Done Encrypting");
+
+                //System.out.println("Done Encrypting");
                 long startTime = System.nanoTime();
 
 
-                out.println(encrypted);
+                out.println(send);
 
                 String serverecho = in.readLine();
 
@@ -111,7 +110,7 @@ public class Client {
 
                 rtt.add(estimatedTime);
 
-                if (!(serverecho.equals(encrypted))) {
+                if (!(serverecho.equals(send))) {
 
                     System.out.println("Validation Error!");
                 }
@@ -169,13 +168,19 @@ public class Client {
     public static void test(int amount){
         Client c = new Client();
         System.out.println("Bytes:"+amount);
+
+        String sending = generateString(amount);
+        String encrypted = encryptDecrpyt(sending);
         for (int i = 0;i<30;i++){
-            c.start(host,amount);
+            c.start(host,amount,encrypted);
         }
         c.close();
 
 
+
         System.out.println("AVG RTT:"+c.calculateAverage(c.rtt)+"ns");
+        c.rtt.clear();
+
 
     }
     public String getACK() {
@@ -224,12 +229,13 @@ public class Client {
         Port = s.nextInt();
 
         if (choice.equalsIgnoreCase("RTT")) {
-            //test(8);
-            //test(64);
-            //test(1024);
-            //test(16000);
-            //test(64000);
-            //test(256000);
+            test(8);
+
+            test(64);
+            test(1024);
+            test(16000);
+            test(64000);
+            test(256000);
             test(1000000);
         }else if (choice.equalsIgnoreCase("Interaction")){
             Scanner sc = new Scanner(System.in);
